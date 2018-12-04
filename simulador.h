@@ -11,6 +11,8 @@ typedef struct ListaEnlazada {
 } lista;
 
 /********** Prototipos **********/
+void obtenerDimensiones(int *arreglo);
+lista crearMaquina(int alto, int ancho);
 
 
 lista insertarLista(lista actual, char elemento);

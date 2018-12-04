@@ -7,7 +7,64 @@
 /********** Main **********/
 int main() {
 
+    srand(2018);
+    int dimensiones[2];
+    obtenerDimensiones(dimensiones);
+    printf("%d, %d\n", dimensiones[0], dimensiones[1]);
+
+    lista maquina;
+    maquina = crearMaquina(dimensiones[0], dimensiones[1]);
+
+
     return 0;
+}
+
+/********** Funciones pertenecientes al programa **********/
+void obtenerDimensiones(int *arreglo) {
+
+    char linea[10];
+
+    FILE *pArchivo;
+    pArchivo = fopen("maquina.in", "r");
+    if (pArchivo == NULL) {
+        printf("No se pudo leer el archivo.");
+    }
+    else{
+        fscanf(pArchivo, "%d", &arreglo[0]);
+        fscanf(pArchivo, "%d", &arreglo[1]);
+    }
+
+    fclose(pArchivo);
+
+    return; 
+}
+
+lista crearMaquina(int alto, int ancho) {
+    int i, j, k;
+    char simbolo;
+    char noUsar[20];
+    nodo *aux1;
+    lista listaFinal, listaAuxiliar;
+
+    FILE *pArchivo;
+    pArchivo = fopen("maquina.in", "r");
+    fgets(noUsar, 20, pArchivo);
+
+    for (i = 0; i < alto; i++) {
+        for (j = 0; j < (2 * ancho); j++) {
+            fscanf(pArchivo, "%c", &simbolo);
+            if (simbolo != ' ' && simbolo != '\n') {
+                printf("%c ", simbolo);
+                listaAuxiliar = insertarLista(listaAuxiliar, simbolo);
+            }
+        }
+        aux1 = listaAuxiliar.fin;
+        aux1->sgte = NULL;  // Para que deje de ser circular.
+
+        printf("\n");
+    }
+
+    return listaAuxiliar;
 }
 
 
@@ -38,6 +95,29 @@ lista insertarLista(lista rodillo, char elemento) {
 	return rodillo;
 }
 
+lista insertarHeader(lista listaPrincipal, lista listaGuardar) {
+    
+    nodo *inicioListaGuardar;
+    inicioListaGuardar = listaGuardar.inicio;
+
+    if (listaPrincipal.size == 0) {
+        listaPrincipal.inicio = inicioListaGuardar;
+        listaPrincipal.fin = inicioListaGuardar;
+        listaPrincipal.size = 1;
+    }
+    else {
+        int i;
+        nodo *aux = listaPrincipal.inicio;
+        for (i = 0; i < (listaPrincipal.size - 1); i++) {
+            aux = aux->sgte;
+        }
+        aux->sgte = inicioListaGuardar;
+        listaPrincipal.fin = inicioListaGuardar;
+        listaPrincipal.size++;
+    }
+    return listaPrincipal;
+}
+
 lista borrarLista(lista rodillo) {
 
     int i;
@@ -58,18 +138,4 @@ lista borrarLista(lista rodillo) {
     free(aux);
 
     return rodillo;
-}
-
-void imprimirLista(nodo *lista, int tamano) {
-
-    int i;
-	nodo *aux = lista;
-	for (i = 0; i < (tamano - 1); i++){
-		printf("%c", aux->valor);
-		aux = aux->sgte;
-	}
-	printf("%c", aux->valor);
-	printf("\n");
-
-    return;
 }
