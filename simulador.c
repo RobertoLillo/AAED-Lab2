@@ -10,7 +10,7 @@ int main() {
     srand(2018);
     int dimensiones[2];
     obtenerDimensiones(dimensiones);
-    printf("%d, %d\n", dimensiones[0], dimensiones[1]);
+    printf("%d %d\n", dimensiones[0], dimensiones[1]);
 
     lista maquina;
     maquina = crearMaquina(dimensiones[0], dimensiones[1]);
@@ -54,12 +54,12 @@ lista crearMaquina(int alto, int ancho) {
         for (j = 0; j < (2 * ancho); j++) {
             fscanf(pArchivo, "%c", &simbolo);
             if (simbolo != ' ' && simbolo != '\n') {
-                printf("%c ", simbolo);
                 listaAuxiliar = insertarLista(listaAuxiliar, simbolo);
             }
         }
         aux1 = listaAuxiliar.fin;
         aux1->sgte = NULL;  // Para que deje de ser circular.
+        imprimirLista(listaAuxiliar.inicio, listaAuxiliar.size);
 
         printf("\n");
     }
@@ -138,4 +138,18 @@ lista borrarLista(lista rodillo) {
     free(aux);
 
     return rodillo;
+}
+
+void imprimirLista(nodo *lista, int tamano) {
+
+    int i;
+	nodo *aux = lista;
+	for (i = 0; i < (tamano - 1); i++){
+		printf("%c", aux->valor);
+		aux = aux->sgte;
+	}
+	printf("%c", aux->valor);
+	printf("\n");
+
+    return;
 }
