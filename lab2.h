@@ -18,6 +18,12 @@ typedef struct Lista {
 
 typedef struct {
     int alto;
-    int largo;
-    lista matrix;
+    int ancho;
+    int cantidadDeListas;
+    lista *matrix;
 } matriz;
+
+void leerArchivo();
+void insertarEnLista(lista *actual, char elemento);
+void imprimirLista(nodo *lista);
+matriz insertarListaEnMatriz(matriz actual, lista *ingresar);
