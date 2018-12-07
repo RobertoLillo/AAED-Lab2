@@ -17,9 +17,7 @@ void leerArchivo() {
     lista *aux;
 
     if (pArchivo) {
-
         fscanf(pArchivo, "%i %i\n", &alto, &ancho);
-
         maquina.alto = alto;
         maquina.ancho = ancho;
         maquina.cantidadDeListas = 0;
@@ -30,20 +28,14 @@ void leerArchivo() {
             nuevaLista->sgte=NULL;
             nuevaLista->inicio=NULL;
             nuevaLista->largo = 0;
-            
             for (j = 0; j < (ancho * 2); j++) {
                 fscanf(pArchivo, "%c", &simbolo);
                 if (simbolo != ' ' && simbolo != '\n') {
-                
                     insertarEnLista(nuevaLista, simbolo);
-
                 }
             }
-            // LINEA LEIDA
             imprimirLista(nuevaLista->inicio);
-            
             maquina = insertarListaEnMatriz(maquina, nuevaLista);
-            
             printf("\n");
         }
     }
