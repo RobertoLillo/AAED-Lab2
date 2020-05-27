@@ -1,2 +1,2 @@
-# EstructuraDeAlgoritmos-Lab2
- Lab 2 Estructura de Algoritmos. C. (2-2018).
+# EDA-Lab2
+ Lab 2 Análisis de algoritmos y Estructuras de Datos. C. (2-2018).
